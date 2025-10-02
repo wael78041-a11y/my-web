@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0b0c10;
+  --foreground: #111827;
+  --brand: #5b21b6; /* violet-800 */
+  --brand-600: #7c3aed;
+  --brand-500: #8b5cf6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --font-sans: var(--font-arabic);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: #f7f7fb;
+  color: #0f172a;
+  font-family: var(--font-arabic), system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Nice scrollbar for dashboards */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #c7c7d1;
+  border-radius: 8px;
+}
+
+.container-page {
+  @apply max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.card {
+  @apply bg-white rounded-xl shadow-sm border border-gray-200;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition-colors;
+}
+.btn-primary {
+  @apply bg-[var(--brand-600)] hover:bg-[var(--brand-500)] text-white;
+}
+.btn-secondary {
+  @apply bg-white border border-gray-300 hover:bg-gray-50 text-gray-700;
+}
+
+.input {
+  @apply w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--brand-500)] focus:border-transparent;
+}
+
+.badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+}
+.badge-success { @apply bg-green-100 text-green-700; }
+.badge-warning { @apply bg-yellow-100 text-yellow-700; }
+.badge-info { @apply bg-blue-100 text-blue-700; }
