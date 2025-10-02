@@ -1,42 +1,11 @@
-name: Deploy Next.js site to GitHub Pages
+import type { NextConfig } from 'next';
 
-on:
-  push:
-    branches: ["main"]
+const nextConfig: NextConfig = {
+  output: 'export',                 // ضروري للتصدير static
+  basePath: '/my-web',              // اسم الريبو (مهم لروابط Pages)
+  assetPrefix: '/my-web/',          // مسار الأصول
+  images: { unoptimized: true },    // لأن Pages ما يدعم Image Optimization
+  trailingSlash: true               // يحل مشاكل الروابط على الدومين الفرعي
+};
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
-
-      - run: npm ci
-      - run: npm run build && npm run export
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+export default nextConfig;
